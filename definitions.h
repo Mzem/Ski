@@ -3,34 +3,29 @@
 
 #endif
 
-
-
 //definition du nombre de sommets et du nombre d'arcs du graphe orienté représentant la carte
-#define V 6		//nombre de sommets
-#define E 7		//nombre d'arcs
+#define V 45		//nombre de sommets
+#define E 99		//nombre d'arcs
 
-typedef struct arc Arc;
-
-struct arc
+typedef struct
 {
-	char*  nom;		//noms des arcs, liste de noms à laquelle on ajoute un element à chaque nouveau arc
-	char* depart;	//nom sommet depart
-	char* arrivee;	//nom sommet arrivee
-	int poids;	
-	int nbArcs;		//nombre d'arcs reliant le sommet de depart au sommet d'arrivee
-};
+	char* nom;		//noms de l'arc de poids le plus faible entre le sommet de depart et le sommet d'arrivee
+	char* depart;	//nom du sommet de depart
+	char* arrivee;	//nom du sommet d'arrivee
+	int poids;		//poids de l'arc de poids le plus faible entre le sommet de depart et le sommet d'arrivee
+} Arc;
 
-struct parc{
+typedef struct
+{
 	int sommet;
 	int poid;
 	int parcouru;
-	};
-typedef struct parc parcour;
+}parcour;
 
-struct ante{
+typedef struct
+{
 	int sommet;
 	int pere;
-	};
-typedef struct ante antecedant;
+}antecedant;
 
-	Arc G[V][V];
+Arc G[V][V];

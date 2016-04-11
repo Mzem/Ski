@@ -5,7 +5,7 @@
 #include <string.h>
 
 int getExperience()
-{//connaitre l'experience du skieur
+{	//connaitre l'experience du skieur
 	char c;
 	while(1){
 		printf("\n\n\nEtes vous debutant o/n ?\n");
@@ -19,7 +19,7 @@ int getExperience()
 }
 
 int calculPoids(int couleur, int temps, int experience)
-{//convertit la couleur et le temps de l'arc en poids, en fonction de l'experience du skieur
+{	//convertit la couleur et le temps de l'arc en poids en fonction de l'experience du skieur
 	//0Vert 1Bleu 2Rouge 3Noir
 	if (couleur==0)
 		return temps;
@@ -31,6 +31,7 @@ int calculPoids(int couleur, int temps, int experience)
 		return (experience*3*temps + temps);
 	return 0;
 }
+
 
 void initialise_tableau_antecedant(antecedant a[])
 {//initialise le tableau antecedant

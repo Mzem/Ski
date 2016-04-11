@@ -7,46 +7,41 @@ void initialise(Arc G[V][V])
 {	//initialise le graphe
 	int i, j;
 	for (i = 0; i < V; i++)
-	{
 		for (j = 0; j < V; j++)
 		{
-			G[j][i].nom = "";
+			G[j][i].nom = "ARC INCONNU";
 			G[j][i].poids = 1000;
-			G[j][i].depart = "Sommet inconnu";
-			G[j][i].arrivee = "Sommet inconnu";
-			G[j][i].nbArcs = 0;
+			G[j][i].depart = "SOMMET INCONNU";
+			G[j][i].arrivee = "SOMMET INCONNU";
 		}
-	}
 }
 	
 char* nomSommet(int indiceSommet)
-{	//prend un indice de sommet dans le tableau et retourne le nom du sommet correspondant
+{	//prend un indice de sommet et retourne le nom du sommet correspondant
 	if (indiceSommet==0)
-		return "Pic blanc";
+		return "PIC BLANC";
 	if (indiceSommet==1)
-		return "Grotte de glace";
+		return "GROTTE DE GLACE";
 	if (indiceSommet==2)
-		return "Lac blanc";
+		return "LAC BLANC";
 	if (indiceSommet==3)
-		return "Sommet 3060";
+		return "SOMMET 3060";
 	if (indiceSommet==4)
-		return "Glacier de sarenne";
-	return "Sommet inconnu";
+		return "GLACIER DE SARENNE";
+	return "SOMMET INCONNU";
 }
 
-int indiceSommet(char nomSommet[]) //comparaison impossible 
-{	//prend un indice de sommet dans le tableau et retourne le nom du sommet correspondant
-	if (!strcmp(nomSommet,"younes"))
+int indiceSommet(char* nomSommet) 
+{	//prend un nom de sommet et retourne son indice correspondant
+	if (!strcmp(nomSommet,"PIC BLANC"))
 		return 0;
-	if (!strcmp(nomSommet,"Grotte_de_glace"))
+	if (!strcmp(nomSommet,"GROTTE DE GLACE"))
 		return 1;
-	if (!strcmp(nomSommet,"Lac_blanc"))
+	if (!strcmp(nomSommet,"LAC BLANC"))
 		return 2;
-	if (!strcmp(nomSommet,"Sommet_3060"))
+	if (!strcmp(nomSommet,"SOMMET 3060"))
 		return 3;
-	if (!strcmp(nomSommet,"bens"))
-		return 4;
-	return 5;
+	return -1;
 }
 
 char* nomArc(int indiceArc)
@@ -68,6 +63,7 @@ char* nomArc(int indiceArc)
 	return "arc inconnu";
 }
 
+
 void lectureGraphe(char* nomFichier, Arc G[V][V])
 {
 	FILE* F = fopen(nomFichier,"r");	//doit etre deja present, sinon NULL
@@ -77,27 +73,23 @@ void lectureGraphe(char* nomFichier, Arc G[V][V])
 		return;
 	}
 	
-	int k, temps, experience = getExperience();
+	int i, temps, experience = getExperience();
 	
 	initialise(G);
 		
-	for (k = 0; k < E; k++)			//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs en comptant les arcs qui se repetent
+	for (i = 0; i < E; i++)		//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs
 	{
-		int i, j, indiceArc, couleur;
-		//i : indice du sommet de départ, j : indice du sommet d'arrivée
+		int indiceSommetDepart, indiceSommetArrivee, indiceArc, couleur;
 		
-		fscanf(F,"%d %d %d %d %d",&i, &j, &indiceArc, &couleur, &temps);
+		fscanf(F,"%d %d %d %d %d",&indiceSommetDepart, &indiceSommetArrivee, &indiceArc, &couleur, &temps);
 		
-		G[i][j].depart = nomSommet(i);
-		G[i][j].arrivee = nomSommet(j);
-		G[i][j].nbArcs++;
-		G[i][j].nom = nomArc(indiceArc);
-		G[i][j].poids = calculPoids(couleur,temps,experience);
-		
+		G[indiceSommetDepart][indiceSommetArrivee].nom = nomArc(indiceArc);
+		G[indiceSommetDepart][indiceSommetArrivee].depart = nomSommet(indiceSommetDepart);
+		G[indiceSommetDepart][indiceSommetArrivee].arrivee = nomSommet(indiceSommetArrivee);
+		G[indiceSommetDepart][indiceSommetArrivee].poids = calculPoids(couleur,temps,experience);
 	}
 	
 	fclose(F);
-	
 }
 
 void afficheGraphe(Arc G[V][V])
@@ -105,14 +97,6 @@ void afficheGraphe(Arc G[V][V])
 	printf("\n######################################### AFFICHAGE DU GRAPHE #########################################\n");
 	int i,j;
 	for (i = 0; i < V; i++)
-	{
 		for (j = 0; j < V; j++)
-		{
-			while (G[i][j].nbArcs!=0){
-					printf("%s\t->\t%s\t %d arc(s) : %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nbArcs,G[i][j].nom,G[i][j].poids);
-
-			}
-		}
-		
-	}
+			printf("%s\t->\t%s\t : %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nom,G[i][j].poids);
 }
