@@ -1,0 +1,55 @@
+S'il existe plusieurs arcs partant d'un même sommet et rentrant dans un même sommet, on ne retient que l'arc de poids le plus faible.
+La raison est que pour calculer un plus court chemin, l'arc de poids faible est le seul à etre pris en compte, peu importe le nombre 
+des autres arcs liant les mêmes sommets.
+
+Le graphe comporte deux types d'arcs : des descentes et des remontées.
+Chaque arc dans le graphe est repéré par un indice.
+Les descentes sont repérées par des indices allant de 0 à 55 : on a donc 56 descentes.
+Les remontées sont repérées par des indices allant de 0 à 42 : on a donc 43 remontées.
+    Remarque : on ajoute 100 à chaque indice des remontée pour les différencier des descentes.
+On a alors 56 descentes et 43 remontées, ce qui fait 99 arcs au total.
+Voici la liste des arcs, ainsi que leurs indices respectifs :
+0 DESCENTE DE SARENNE
+100 TELEPHERIQUE PIC BLANC
+101 TELESIEGE GLACIER
+102 TELESIEGE HERPIE
+103 FUNITEL MARMOTTES III
+104 TELESIEGE LAC BLANC
+105 TELEPHERIQUE ALPETTE-ROUSSES
+106 DMC 2EME TRONCON
+107 TELESIEGE LIEVRE BLANC
+108 TELECABINE MARMOTTES II
+109 TELECABINE POUTRAN II
+110 DMC 1ER TRONCON
+111 TELESIEGE ROMAINS
+112 TELESIEGEBULLE MARMOTTES I
+113 TELEMIXTE RIFNEL EXPRESS 
+114 TELESIEGE SIGNAL
+115 TELESKI STADE
+116 TELESKI ECLOSE-SCHUSS
+117 TELESIEGE GRANDE SURE
+118 TELECABINE TELEVILLAGE
+119 TELESIEGE BERGERS
+120 TELESKI PETIT PRINCE
+121 TELESIEGE TSD LE VILLARAIS
+122 TELESIEGE ALPAURIS-ALPE D'HUEZ
+123 TELESIEGE CHALVET
+124 TELESIEGE FONTFROIDE
+125 TELESIEGE LOUVETS
+126 TELESIEGE ALPAURIS
+127 TELESIEGE AURIS EXPRESS
+128 TELESKI COL
+129 TELESIEGE SURES
+130 TELESIEGE MARONNE
+131 TELECABINE L'ALPETTE
+132 TELESKI L'ALPETTE
+133 TELECABINE POUTRAN I
+134 TELESKI HAMP CLOTURE
+135 TELEPHERIQUE VAUJANY-ALPETTE
+136 TELESIEGE CLOS GIRAUD
+137 TELESKI MONTFRAIS
+138 TELESIEGE MONTFRAIS
+139 TELESIEGE VALLONNET
+140 TELECABINE VILLETTE-MONTFRAIS
+141 TELECABINE VAUJANY-VILLETTE
+142 TELECABINE VAUJANY-ENVERSIN
