@@ -1,3 +1,6 @@
+Les noms des sommets sont choisis par rapport au nom de la zone où se trouve le sommet. Si la zone ne porte pas de nom, le nom du sommet sera choisi par rapport au nom de la descente/remontée la plus proche.
+Chaque sommet est repéré par un indice allant de 0 à 44 : on a donc 45 sommets au total.
+Voici la liste des sommets, ainsi que leurs indices respectifs :
 0 PIC BLANC
 1 GROTTE DE GLACE
 2 SOMMET 3060
@@ -40,3 +43,6 @@
 39 MARONNE
 40 VILLARD RECULAS
 41 HUEZ
+42 DOME DES PETITES ROUSSES
+43 ALPAURIS
+44 L'ALPETTE
