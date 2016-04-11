@@ -9,7 +9,64 @@ Les remontées sont repérées par des indices allant de 0 à 42 : on a donc 43 
     Remarque : on ajoute 100 à chaque indice des remontée pour les différencier des descentes.
 On a alors 56 descentes et 43 remontées, ce qui fait 99 arcs au total.
 Voici la liste des arcs, ainsi que leurs indices respectifs :
-0 DESCENTE DE SARENNE
+    Liste des descentes :
+0 descente SARENNE HAUTE / CHATEAU NOIR
+1 descente GLACIER
+2 descente BRECHE
+3 descente TUNNEL
+4 descente CRISTAILLERE
+5 descente SARENNE BASSE
+6 descente DOME
+7 descente LAC BLANC
+8 descente PROMONTOIRE
+9 descente COMBE CHARBONNIERE
+10 descente ROUSSES
+11 descente CHAMOIS
+12 descente ANCOLIES
+13 descente CANYON
+14 descente CAMPANULES
+15 descente COL DE CLUY
+16 descente VERNETTES
+17 descente CHALVET-ALPAURIS
+18 descente ETERLOUS
+19 descente FONTFROIDE
+20 descente PRE-ROND
+21 descente COL 1
+22 descente LES FARCIS
+23 descente GENTIANES
+24 descente COL 2
+25 descente CORNICHE
+26 descente FONTFROIDE-LOUVETS
+27 descente BARTAVELLES
+28 descente POUTRAN
+29 descente JEUX
+30 descente AGNEAUX
+31 descente LES BERGES
+32 descente LOUP BLANC
+33 descente POUSSINS
+34 descente ANEMONES
+35 descente SIGNAL-STADE
+36 descente SIGNAL
+37 descente SCHUSS-ECLOSE
+38 descente SCHUSS-GRANDE SURE
+39 descente ECLOSE-GRANDE SURE
+40 descente VILLAGE 1
+41 descente HUEZ
+42 descente VILLAGE 2
+43 descente PETIT PRINCE
+44 descente LA FORET
+45 descente L'OLMET
+46 descente CHAMPCLOTURY
+47 descente ALPETTE
+48 descente LUTINS
+49 descente CARRELET
+50 descente CHALETS
+51 descente LA FARE
+52 descente CASCADE
+53 descente ETOURNEAUX
+54 descente EDELWEISS
+55 descente VAUJANIATE
+    Liste des remontées :
 100 TELEPHERIQUE PIC BLANC
 101 TELESIEGE GLACIER
 102 TELESIEGE HERPIE
