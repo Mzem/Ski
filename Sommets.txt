@@ -23,7 +23,7 @@ Voici la liste des sommets, ainsi que leurs indices respectifs :
 19 CHALVET
 20 AURIS EXPRESS
 21 FONTFROIDE
-22 L'OUVETS
+22 LOUVETS
 23 POUTRAN
 24 CHAMP CLOTURE
 25 STADE
