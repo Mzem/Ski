@@ -45,4 +45,4 @@ Voici la liste des sommets, ainsi que leurs indices respectifs :
 41 HUEZ
 42 DOME DES PETITES ROUSSES
 43 ALPAURIS
-44 L'ALPETTE
+44 L'ALPETTE BASSE

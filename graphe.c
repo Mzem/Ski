@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Fonctions concernant la lecture et le traitement des éléments du graphe
+
 void initialise(Arc G[V][V])
 {	//initialise le graphe
 	int i, j;
@@ -24,17 +26,17 @@ char* nomSommet(int indiceSommet)
 	if (indiceSommet==1)
 		return "GROTTE DE GLACE";
 	if (indiceSommet==2)
-		return " SOMMET 3060";
+		return "SOMMET 3060";
 	if (indiceSommet==3)
-		return " SARENNE BASSE";
+		return "SARENNE BASSE";
 	if (indiceSommet==4)
 		return "CLOCHER DE MACLE";
 	if (indiceSommet==5)
-		return " LAC BLANC";
+		return "LAC BLANC";
 	if (indiceSommet==6)
-		return " LIEVRE BLANC";
+		return "LIEVRE BLANC";
 	if (indiceSommet==7)
-		return " PLAT DES MARMOTTES";
+		return "PLAT DES MARMOTTES";
 	if (indiceSommet==8)
 		return "MINE DE L'HERPIE";
 	if (indiceSommet==9)
@@ -108,7 +110,7 @@ char* nomSommet(int indiceSommet)
 	if (indiceSommet==43)
 		return "ALPAURIS";
 	if (indiceSommet==44)
-		return "L'ALPETTE";
+		return "L'ALPETTE BASSE";
 		
 	return "SOMMET INCONNU";
 }
@@ -203,7 +205,7 @@ int indiceSommet(char* nomSommet)
 		return 42;
 	 if (!strcmp(nomSommet,"ALPAURIS"))
 		return 43;
-	 if (!strcmp(nomSommet,"L'ALPETTE"))
+	 if (!strcmp(nomSommet,"L'ALPETTE_BASSE"))
 		return 44;
 	return 200;		//Sommet 200 n'existe pas donc sommet inconnu, donc pas de chemin
 }
@@ -415,7 +417,7 @@ char* nomArc(int indiceArc)
 
 
 void lectureGraphe(char* nomFichier, Arc G[V][V])
-{
+{	//Lit le graphe à partir du fichier fourni
 	FILE* F = fopen(nomFichier,"r");	//doit etre deja present, sinon NULL
 	
 	if (F == NULL){
@@ -423,30 +425,32 @@ void lectureGraphe(char* nomFichier, Arc G[V][V])
 		return;
 	}
 	
-	int i, temps, experience = getExperience();
+	int k, temps, experience = getExperience();
 	
 	initialise(G);
 		
-	for (i = 0; i < E; i++)		//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs
+	for (k = 0; k < E; k++)		//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs
 	{
-		int indiceSommetDepart, indiceSommetArrivee, indiceArc, couleur;
+		int i, j, indiceArc, couleur;
+		//i : indiceSommetDepart, j : indiceSommetArrivee
 		
-		fscanf(F,"%d %d %d %d %d",&indiceSommetDepart, &indiceSommetArrivee, &indiceArc, &couleur, &temps);
-		
-		G[indiceSommetDepart][indiceSommetArrivee].nom = nomArc(indiceArc);
-		G[indiceSommetDepart][indiceSommetArrivee].depart = nomSommet(indiceSommetDepart);
-		G[indiceSommetDepart][indiceSommetArrivee].arrivee = nomSommet(indiceSommetArrivee);
-		G[indiceSommetDepart][indiceSommetArrivee].poids = calculPoids(couleur,temps,experience);
+		fscanf(F,"%d %d %d %d %d",&i, &j, &indiceArc, &couleur, &temps);
+
+		G[i][j].nom = nomArc(indiceArc);
+		G[i][j].depart = nomSommet(i);
+		G[i][j].arrivee = nomSommet(j);
+		G[i][j].poids = calculPoids(G[i][j].nom, couleur,temps,experience);
 	}
 	
 	fclose(F);
 }
 
 void afficheGraphe(Arc G[V][V])
-{
+{	//Un affichage détaillé des arcs du graphe pour tester la lecture
 	printf("\n######################################### AFFICHAGE DU GRAPHE #########################################\n");
 	int i,j;
 	for (i = 0; i < V; i++)
 		for (j = 0; j < V; j++)
-			printf("%s\t->\t%s\t : %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nom,G[i][j].poids);
+			if (G[i][j].poids!=1000)
+				printf("%s   ->   %s   :   %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nom,G[i][j].poids);
 }

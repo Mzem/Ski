@@ -5,19 +5,26 @@
 
 int main(int argc, char* argv[])
 {
-	char depart[100];
-	char arrivee[100];
-	antecedant a[V];
-	parcour p[V]; 
+	Arc G[V][V];
+	
 	lectureGraphe("graphe.txt",G);
-	printf("A quel endroit vous situez vous ?\n");
-	scanf("%s",depart);
-	printf("A quel endroit voulez vous acceder ?\n");
-	scanf("%s",arrivee);
-	printf("\n\n\n");
+	afficheGraphe(G);
+	
+	/*
+	char* sommetDepart;
+	char* sommetArrivee;
+	antecedant a[V];
+	parcour p[V];
+
+	printf("Ou vous trouvez-vous ?\n");
+	scanf("%s",sommetDepart);
+	printf("A quel endroit souhaitez-vous vous rendre ?\n");
+	scanf("%s",sommetArrivee);
+	printf("\n\n");
 	initialise_tableau_antecedant(a);
 	initialise_tableau_parcour(p,indiceSommet(depart));
-	dijstra(indiceSommet(depart),indiceSommet(arrivee),a,p);   
+	dijkstra(indiceSommet(depart),indiceSommet(arrivee),a,p);
+	*/   
 	return 0;
 }
  //si poid arrivée==1000 demande de remonter un peu a pied car chemin inexistant
