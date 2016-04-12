@@ -4,10 +4,10 @@ des autres arcs liant les mêmes sommets.
 
 Le graphe comporte deux types d'arcs : des descentes et des remontées.
 Chaque arc dans le graphe est repéré par un indice.
-Les descentes sont repérées par des indices allant de 0 à 55 : on a donc 56 descentes.
+Les descentes sont repérées par des indices allant de 0 à 56 : on a donc 57 descentes.
 Les remontées sont repérées par des indices allant de 0 à 42 : on a donc 43 remontées.
     Remarque : on ajoute 100 à chaque indice des remontée pour les différencier des descentes.
-On a alors 56 descentes et 43 remontées, ce qui fait 99 arcs au total.
+On a alors 57 descentes et 43 remontées, ce qui fait 100 arcs au total.
 Voici la liste des arcs, ainsi que leurs indices respectifs :
     Liste des descentes :
 0 descente SARENNE HAUTE / CHATEAU NOIR
@@ -66,6 +66,7 @@ Voici la liste des arcs, ainsi que leurs indices respectifs :
 53 descente ETOURNEAUX
 54 descente EDELWEISS
 55 descente VAUJANIATE
+56 descente VILLARD
     Liste des remontées :
 100 TELEPHERIQUE PIC BLANC
 101 TELESIEGE GLACIER
