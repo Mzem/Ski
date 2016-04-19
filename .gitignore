@@ -1,0 +1,6 @@
+*.o
+ski
+*.aux
+*.log
+test
+test.c
