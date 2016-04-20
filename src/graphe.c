@@ -1,4 +1,5 @@
 #include "fonctions.h"
+#include "definitions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -439,6 +440,7 @@ void lectureGraphe(char* nomFichier, Arc G[V][V])
 		G[i][j].nom = nomArc(indiceArc);
 		G[i][j].depart = nomSommet(i);
 		G[i][j].arrivee = nomSommet(j);
+		G[i][j].couleur = couleur;
 		G[i][j].poids = calculPoids(G[i][j].nom, couleur,temps,experience);
 	}
 	

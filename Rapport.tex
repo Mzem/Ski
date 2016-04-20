@@ -1,15 +1,14 @@
 \documentclass[a4]{article}
-\usepackage{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 \usepackage{listings}
 \usepackage{color}
-
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
-\lstset{ %
+\lstset{
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\footnotesize,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
@@ -19,12 +18,12 @@
   deletekeywords={...},            % if you want to delete keywords from the given language
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,	                   % adds a frame around the code
+  frame=L,	                       % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=Octave,                 % the language of the code
+  language=C,                 	   % the language of the code
   otherkeywords={*,...},           % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
@@ -36,24 +35,45 @@
   tabsize=2,	                   % sets default tabsize to 2 spaces
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption= instead of title
 }
+%gestion des caractères latins
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1
+}
+%definition d'un syle pour les documents texte
+\lstdefinestyle{txt}{
+	frame=none,
+	numbers=none,
+	stringstyle=\color{black},
+}
 
 \author{Younes Ben Yamna - Malek Zemni}
 \title{Rapport - Projet théorie des graphes}
 \date{\today}
 
 \begin{document}
-\lstset{language=C}
 \maketitle
 
 	\section{Introduction}
-			ici on parle de l''idee generale et comment on va faire pour le projet
+			ici on parle de l'idée generale et comment on va faire pour le projet\\
+			Test avec accents : ça été à la télé, madère.
 	\section{Structures}
-		les structures utilsisee sont :
+			les structures utilsisee sont :
 			la structure arc qui represente un arc (comme son nom l'indique)\\
 			la structure parcour qui contiend le poid de chaque sommet (par rapport au sommet de depart)
-			 son indice et une variable parcouru qui indique si il est parcouru ou non (-1 ou 0)\\
+			son indice et une variable parcouru qui indique si il est parcouru ou non (-1 ou 0)\\
 			la structure antecedant qui contiend l'indice du sommet et son pere (le sommet par lequel on passe pour arrivera notre sommet le plus rapidement possible)
-		\lstinputlisting[firstline=7]{src/definitions.h}
+			\lstinputlisting{src/definitions.h}
 	\section{Graphe}
 		\subsection{Sommets du graphe}
 			\paragraph{Considération des sommets\\}
@@ -64,19 +84,19 @@
 			\paragraph{Indices des sommets\\}
 			Chaque sommet est repéré par un indice allant de 0 à 44 : on a donc 45 sommets au total.\\
 			Voici la liste complète des sommets, ainsi que leurs indices respectifs :
-			\lstinputlisting[firstline=13]{src/Sommets.txt}
+			\lstinputlisting[firstline=4,style=txt]{data/sommets.txt}
 		\subsection{Arcs du graphe}
 			\paragraph{Considération des arcs\\}
-			voici tout les arcs qu'on a considerer dans notre travail\\
+			voici tout les arcs qu'on a consideré dans notre travail\\
 			NB: si deux arcs relient deux sommet dans le meme sens on garde celui avec le poid le plus petit 
-			\lstinputlisting[firstline=13]{src/Arcs.txt}
+			\lstinputlisting[firstline=13,style=txt]{data/arcs.txt}
 		\subsection{Fichier du graphe}
 			le premier entier est le nom du sommet de depart (enfin l'indice qui represente ce nom)\\
 			le deuxieme entier est le nom du sommet d'arrivee(enfin l'indice qui represente ce nom)\\
 			le troisieme entier est le nom de l'arc (enfin l'indice qui represente ce nom)\\
 			le quatrieme entier est le poid de cet arc (sans considerer la couleur)\\
 			le cinqieme entier est la couleur de cet arc\\
-			\lstinputlisting[firstline=7,lastline=15]{src/graphe.txt}
+			\lstinputlisting[firstline=7,lastline=15]{data/graphe.txt}
 		\subsection{lecture du graphe}
 			la fonction utilisee est elle fait ...
 			\lstinputlisting[firstline=419,lastline=446]{src/graphe.c}

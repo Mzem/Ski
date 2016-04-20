@@ -1,8 +1,6 @@
-#include "definitions.h"
 #include "graphe.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 void initialise_tableau_antecedant(antecedant a[])
 {	//initialise le tableau antecedant

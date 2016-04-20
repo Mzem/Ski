@@ -1,16 +1,19 @@
 #include "graphe.h"
-#include "fonctions.h"
-#include <stdio.h> 
+#include "dijkstra.h"
+#include "affichage.h"
+#include <stdio.h>
 
 
 int main(int argc, char* argv[])
 {
-	Arc G[V][V];
+	lectureGraphe("../data/graphe.txt",G);
+	afficheFenetre();
+	/*
 	
-	lectureGraphe("graphe.txt",G);
+	lectureGraphe("../data/graphe.txt",G);
 	afficheGraphe(G);
 	
-	/*
+
 	char* sommetDepart;
 	char* sommetArrivee;
 	antecedant a[V];
@@ -22,9 +25,10 @@ int main(int argc, char* argv[])
 	scanf("%s",sommetArrivee);
 	printf("\n\n");
 	initialise_tableau_antecedant(a);
-	initialise_tableau_parcour(p,indiceSommet(depart));
-	dijkstra(indiceSommet(depart),indiceSommet(arrivee),a,p);
-	*/   
+	initialise_tableau_parcour(p,indiceSommet(sommetDepart));
+	dijkstra(indiceSommet(sommetDepart),indiceSommet(sommetArrivee),a,p);
+	*/
+	
 	return 0;
 }
  //si poid arrivée==1000 demande de remonter un peu a pied car chemin inexistant

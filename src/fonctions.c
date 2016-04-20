@@ -1,5 +1,3 @@
-#include "definitions.h"
-#include "graphe.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
