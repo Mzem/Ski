@@ -2,5 +2,6 @@
 ski
 *.aux
 *.log
+*.dvi
 test
 test.c

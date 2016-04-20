@@ -46,6 +46,14 @@
 \maketitle
 
 	\section{Introduction}
+			ici on parle de l''idee generale et comment on va faire pour le projet
+	\section{Structures}
+		les structures utilsisee sont :
+			la structure arc qui represente un arc (comme son nom l'indique)\\
+			la structure parcour qui contiend le poid de chaque sommet (par rapport au sommet de depart)
+			 son indice et une variable parcouru qui indique si il est parcouru ou non (-1 ou 0)\\
+			la structure antecedant qui contiend l'indice du sommet et son pere (le sommet par lequel on passe pour arrivera notre sommet le plus rapidement possible)
+		\lstinputlisting[firstline=7]{src/definitions.h}
 	\section{Graphe}
 		\subsection{Sommets du graphe}
 			\paragraph{Considération des sommets\\}
@@ -56,62 +64,40 @@
 			\paragraph{Indices des sommets\\}
 			Chaque sommet est repéré par un indice allant de 0 à 44 : on a donc 45 sommets au total.\\
 			Voici la liste complète des sommets, ainsi que leurs indices respectifs :
-			\begin{itemize}
-			\item 0 PIC BLANC
-			\item 1 GROTTE DE GLACE
-			\item 2 SOMMET 3060
-			\item 3 SARENNE BASSE
-			\item 4 CLOCHER DE MACLE
-			\item 5 LAC BLANC
-			\item 6 LIEVRE BLANC
-			\item 7 PLAT DES MARMOTTES
-			\item 8 MINE DE L'HERPIE
-			\item 9 SOMMET 2100
-			\item 10 SOMMET DES VACHETTES
-			\item 11 SIGNAL DE L'HOMME
-			\item 12 L'ALPETTE
-			\item 13 COL DU COUARD
-			\item 14 CASCADE
-			\item 15 CLOS GIRAUD
-			\item 16 MONFRAIS
-			\item 17 SIGNAL
-			\item 18 RIFNEL EXPRESS
-			\item 19 CHALVET
-			\item 20 AURIS EXPRESS
-			\item 21 FONTFROIDE
-			\item 22 LOUVETS
-			\item 23 POUTRAN
-			\item 24 CHAMP CLOTURE
-			\item 25 STADE
-			\item 26 SCHUSS
-			\item 27 ALPE D'HUEZ
-			\item 28 GRANDE SURE
-			\item 29 ECLOSE
-			\item 30 SURES
-			\item 31 COL
-			\item 32 AURIS EN OISANS
-			\item 33 LA VILLETTE
-			\item 34 VAUJANY
-			\item 35 L'EVERSIN D'OZ
-			\item 36 OZ EN OISANS
-			\item 37 PETIT PRINCE
-			\item 38 VILLAGE
-			\item 39 MARONNE
-			\item 40 VILLARD RECULAS
-			\item 41 HUEZ
-			\item 42 DOME DES PETITES ROUSSES
-			\item 43 ALPAURIS
-			\item 44 L'ALPETTE
-			\end{itemize}
+			\lstinputlisting[firstline=13]{src/Sommets.txt}
 		\subsection{Arcs du graphe}
 			\paragraph{Considération des arcs\\}
+			voici tout les arcs qu'on a considerer dans notre travail\\
+			NB: si deux arcs relient deux sommet dans le meme sens on garde celui avec le poid le plus petit 
+			\lstinputlisting[firstline=13]{src/Arcs.txt}
 		\subsection{Fichier du graphe}
-	\section{Structure}
-	\section{Algorithme}
-		\lstinputlisting[firstline=7]{src/dijkstra.c}
-		\subsection{Lecture du graphe}
-		\subsection{Affichage du graphe}
-	\section{Conclusion}
+			le premier entier est le nom du sommet de depart (enfin l'indice qui represente ce nom)\\
+			le deuxieme entier est le nom du sommet d'arrivee(enfin l'indice qui represente ce nom)\\
+			le troisieme entier est le nom de l'arc (enfin l'indice qui represente ce nom)\\
+			le quatrieme entier est le poid de cet arc (sans considerer la couleur)\\
+			le cinqieme entier est la couleur de cet arc\\
+			\lstinputlisting[firstline=7,lastline=15]{src/graphe.txt}
+		\subsection{lecture du graphe}
+			la fonction utilisee est elle fait ...
+			\lstinputlisting[firstline=419,lastline=446]{src/graphe.c}
+	\section{les fonctions}
+		\subsection{get experience}
+			c'est la fontion qui
+			\lstinputlisting[firstline=9,lastline=21]{src/fonctions.c}
+		\subsection{calcul poid}
+			c'est la fontion qui
+			\lstinputlisting[firstline=23,lastline=55]{src/fonctions.c}
+	\section{Algorithme de Dijkstra}
+		\subsection{intro}
+			la on parle du principe comment et pourquoi
+		\subsection{initialisation des tableaux}
+			\lstinputlisting[firstline=7,lastline=26]{src/dijkstra.c}
+		\subsection{recherche des peres et des fils}
+			\lstinputlisting[firstline=28,lastline=55]{src/dijkstra.c}
+		\subsection{l'algo de dijkstra}
+			\lstinputlisting[firstline=57]{src/dijkstra.c}
+	\section{Conclusion et difficultées}
+		
 
 \end{document}
 
