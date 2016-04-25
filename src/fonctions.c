@@ -1,53 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "affichage.h"
+#include "graphe.h"
+#include "dijkstra.h"
 
-//Fonctions diverses
+//Fonctions principales
 
-int getExperience()
-{	//connaitre l'experience du skieur
-	char c;
-	while(1){
-		printf("Etes vous debutant o/n ?\n");
-		scanf("%c",&c);
-		if (c == 'o')
-			return 1;
-		if (c == 'n')
-			return 0;
-		scanf("%c",&c);	//libere le buffer
-	}
+void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
+{
+	POINT HG;
+	HG.x = 880;
+	HG.y = 580;
+	
+	antecedant a[V];
+	parcour p[V];
+
+	initialise_tableau_antecedant(a);
+	initialise_tableau_parcour(p, sommetDepart);
+
+	dijkstra(sommetDepart, sommetArrivee, a, p);
+	
+	//ici on doit mettre la parite affichage de la fonction dijkstra
+	//il faut aussi afficher le nom des sommet parcourus et des arcs à chaque fois (j'ai prévu un truc)
 }
 
-int calculPoids(char* nomArc, int couleur, int temps, int experience)
-{	//convertit la couleur et le temps de l'arc en poids en fonction de l'experience du skieur
-	//0Vert 1Bleu 2Rouge 3Noir
-	double typeRemontee = 1;
-	//typeRemontee est le nombre par lequel on multiplie (ou plutot divise) le poids de la remontee en fonction de son type
+void itineraire(Arc G, int experience)
+{	//Lance le choix du point de départ et d'arrivée en mode graphique
+	int sommetDepart, sommetArrivee = -1;
+	POINT HG;
 	
-	if (couleur==0)
-	{	//Les remontees sont des arcs de couleur 0
-		//Plus ce type de remontée est rapide plus son poids va diminuer
-		if (strstr(nomArc, "TELEPHERIQUE") != NULL)
-			typeRemontee = 0.3;
-		if (strstr(nomArc, "FUNITEL") != NULL)
-			typeRemontee = 0.5;
-		if (strstr(nomArc, "DMC") != NULL)
-			typeRemontee = 0.6;
-		if (strstr(nomArc, "TELECABINE") != NULL)
-			typeRemontee = 0.7;
-		if (strstr(nomArc, "TELEMIXSTE") != NULL)
-			typeRemontee = 0.8;
-		if (strstr(nomArc, "TELESIEGEBULLE") != NULL)
-			typeRemontee = 0.85;
-		if (strstr(nomArc, "TELESIEGE") != NULL)
-			typeRemontee = 0.9;
-		return (int)(temps*typeRemontee);
+	while(1)	//ne s'arrete que si l'on clique sur le bouton menu
+	{
+		POINT clic = wait_clic();
+		HG.x = 880; HG.y = 370;
+	
+		if (clicBoutonMenu(clic))	//si on clique sur le bouton menu, la fonction se termine
+			return;
+		
+		if ( (sommetDepart = clicSommet(clic,rouge)) != -1 )	//si on clique sur un 1er sommet
+		{
+			afficheTexte(nomSommet(sommetDepart),HG,rouge);
+			
+			while(sommetArrivee == -1)	//on attend un clic sur un 2ème sommet
+			{
+				clic = wait_clic();
+				HG.y = 270;
+				
+				if ( (sommetArrivee = clicSommet(clic,vert)) != -1 )
+					afficheTexte(nomSommet(sommetArrivee),HG,vert);
+					plusCourtChemin(G, sommetDepart, sommetArrivee);	//Lance le calcul du plus court chemin en mode graphique
+			}
+		}
 	}
-	if (couleur==1)
-		return (experience*temps + temps);
-	if (couleur==2)
-		return (experience*2*temps + temps);
-	if (couleur==3)
-		return (experience*3*temps + temps);
-	return 1000;
 }

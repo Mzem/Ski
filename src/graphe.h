@@ -7,14 +7,12 @@
 
 //Fonctions concernant la lecture et le traitement des éléments du graphe
 
-void initialise(Arc G[V][V]);
-
 char* nomSommet(int indiceSommet);
 
 int indiceSommet(char* nomSommet);
 
 char* nomArc(int indiceArc);
 
-void lectureGraphe(char* nomFichier, Arc G[V][V]);
+void lectureGraphe(char* nomFichier, Arc G[V][V], int experience);
 
 void afficheGraphe(Arc G[V][V]);

@@ -1,10 +1,44 @@
 #include "fonctions.h"
-#include "definitions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 //Fonctions concernant la lecture et le traitement des éléments du graphe
+
+int calculPoids(char* nomArc, int couleur, int temps, int experience)
+{	//Convertit la couleur et le temps de l'arc en poids en fonction de l'experience du skieur
+	//Couleurs : 0 - Vert, 1 - Bleu, 2 - Rouge, 3 - Noir
+	double typeRemontee = 1;	//nombre par lequel on diminue le poids de la remontée (varie en fonction de le type de remontée)
+	
+	if (couleur==1)
+		return temps;
+	if (couleur==1)
+		return (experience*temps + temps);
+	if (couleur==2)
+		return (experience*2*temps + temps);
+	if (couleur==3)
+		return (experience*3*temps + temps);
+	if (couleur==4)
+	{	//Les remontees sont des arcs de couleur 4
+		//Plus ce type de remontée est rapide plus son poids va diminuer
+		if (strstr(nomArc, "TELEPHERIQUE") != NULL)
+			typeRemontee = 0.3;
+		if (strstr(nomArc, "FUNITEL") != NULL)
+			typeRemontee = 0.5;
+		if (strstr(nomArc, "DMC") != NULL)
+			typeRemontee = 0.6;
+		if (strstr(nomArc, "TELECABINE") != NULL)
+			typeRemontee = 0.7;
+		if (strstr(nomArc, "TELEMIXSTE") != NULL)
+			typeRemontee = 0.8;
+		if (strstr(nomArc, "TELESIEGEBULLE") != NULL)
+			typeRemontee = 0.85;
+		if (strstr(nomArc, "TELESIEGE") != NULL)
+			typeRemontee = 0.9;
+		return (int)(temps*typeRemontee);
+	}
+	return 1000;
+}
 
 void initialise(Arc G[V][V])
 {	//initialise le graphe
@@ -417,7 +451,7 @@ char* nomArc(int indiceArc)
 }
 
 
-void lectureGraphe(char* nomFichier, Arc G[V][V])
+void lectureGraphe(char* nomFichier, Arc G[V][V], int experience)
 {	//Lit le graphe à partir du fichier fourni
 	FILE* F = fopen(nomFichier,"r");	//doit etre deja present, sinon NULL
 	
@@ -426,13 +460,13 @@ void lectureGraphe(char* nomFichier, Arc G[V][V])
 		return;
 	}
 	
-	int k, temps, experience = getExperience();
+	int k;
 	
 	initialise(G);
 		
 	for (k = 0; k < E; k++)		//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs
 	{
-		int i, j, indiceArc, couleur;
+		int i, j, indiceArc, couleur, temps;
 		//i : indiceSommetDepart, j : indiceSommetArrivee
 		
 		fscanf(F,"%d %d %d %d %d",&i, &j, &indiceArc, &couleur, &temps);
@@ -448,7 +482,7 @@ void lectureGraphe(char* nomFichier, Arc G[V][V])
 }
 
 void afficheGraphe(Arc G[V][V])
-{	//Un affichage détaillé des arcs du graphe pour tester la lecture
+{	//Un affichage détaillé en mode console des arcs du graphe pour tester la lecture
 	printf("\n######################################### AFFICHAGE DU GRAPHE #########################################\n");
 	int i,j;
 	for (i = 0; i < V; i++)

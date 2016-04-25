@@ -1,35 +1,46 @@
-#include "graphe.h"
-#include "dijkstra.h"
-#include "affichage.h"
-#include <stdio.h>
+#include "fonctions.h"
 
+//Pour éviter les Warnings "implicit declaration"
+extern void afficheMenu();
+extern void afficheCarte();
+extern int clicBoutonDebutant(POINT choix);
+extern int clicBoutonExpert(POINT choix);
+extern void afficheBoutonDebutant();
+extern void afficheBoutonExpert();
+extern void lectureGraphe(char* nomFichier, Arc G[V][V], int experience);
 
 int main(int argc, char* argv[])
 {
-	lectureGraphe("../data/graphe.txt",G);
-	afficheFenetre();
-	/*
+	init_graphics(1100,600);	//fenetre fixée à 1100x600
 	
-	lectureGraphe("../data/graphe.txt",G);
-	afficheGraphe(G);
+	while (1)
+	{	
+		afficheMenu();
+		
+		POINT choix = wait_clic();
 	
-
-	char* sommetDepart;
-	char* sommetArrivee;
-	antecedant a[V];
-	parcour p[V];
-
-	printf("Ou vous trouvez-vous ?\n");
-	scanf("%s",sommetDepart);
-	printf("A quel endroit souhaitez-vous vous rendre ?\n");
-	scanf("%s",sommetArrivee);
-	printf("\n\n");
-	initialise_tableau_antecedant(a);
-	initialise_tableau_parcour(p,indiceSommet(sommetDepart));
-	dijkstra(indiceSommet(sommetDepart),indiceSommet(sommetArrivee),a,p);
-	*/
+		if ( clicBoutonDebutant(choix) )
+		{
+			afficheBoutonDebutant();
+			
+			afficheCarte();
+			
+			lectureGraphe("../data/graphe.txt",G, DEBUTANT);	//lecture du graphe à partir du fichier le représentant et le stocker dans G
+			
+			itineraire(G);	//fonction principale
+		}
+		else if ( clicBoutonExpert(choix) )
+		{
+			afficheBoutonExpert();
+			
+			afficheCarte();
+			
+			lectureGraphe("../data/graphe.txt",G, EXPERT);		//lecture du graphe à partir du fichier le représentant et le stocker dans G
+			
+			itineraire(G);	//fonction principale
+		}
+	}
+	wait_escape();
 	
 	return 0;
 }
- //si poid arrivée==1000 demande de remonter un peu a pied car chemin inexistant
- //le poid =1000 a modifier

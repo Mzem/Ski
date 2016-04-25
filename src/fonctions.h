@@ -1,3 +1,8 @@
-int getExperience();
+#ifndef DEF_DEF
+#define DEF_DEF
 
-int calculPoids(char* nomArc, int couleur, int temps, int experience);
+#include "definitions.h"
+
+#endif
+
+void itineraire(Arc G[V][V]);

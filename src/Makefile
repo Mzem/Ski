@@ -7,19 +7,19 @@ run:	ski
 ski: 	main.o graphe.o fonctions.o dijkstra.o affichage.o graphics.o
 			gcc -g -Wall main.o graphe.o fonctions.o dijkstra.o affichage.o graphics.o -o ski `sdl-config --libs` -lSDL_ttf -lm
 		
-main.o:	main.c graphe.h dijkstra.h affichage.h
+main.o:	main.c fonctions.h
 		gcc -c -Wall main.c
 
-graphe.o:	graphe.c fonctions.h definitions.h
-				gcc -c -Wall graphe.c
-
-fonctions.o:	fonctions.c
+fonctions.o:	fonctions.c affichage.h graphe.h dijkstra.h
 				gcc -c -Wall fonctions.c
+				
+graphe.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
 
 dijkstra.o:	dijkstra.c graphe.h
 				gcc -c -Wall dijkstra.c
 
-affichage.o : affichage.c graphics.h definitions.h
+affichage.o : affichage.c definitions.h
 				gcc -c -Wall affichage.c
 
 #construit le fichier binaire graphics.o

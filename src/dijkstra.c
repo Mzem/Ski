@@ -1,4 +1,5 @@
 #include "graphe.h"
+#include "affichage.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -62,7 +63,7 @@ void dijkstra(int depart,int arrivee,antecedant a[],parcour p[])
 		return;}
 	while(pere!=-1)
 	{
-			printf("le pere est %d\n",pere);
+		printf("le pere est %d\n",pere);
 		int nbf=recherche_fils(pere,f);
 		for (i = 0; i < nbf; i++)
 		{
@@ -90,9 +91,10 @@ void dijkstra(int depart,int arrivee,antecedant a[],parcour p[])
 	i++;
 	for (j = 0; j < i-1 ; j++) 
 	{
-		printf("%d ) vous devez partir du sommet '%s' et prendre '%s' jusqu'au sommet '%s'\n\n",j,nomSommet(chemin[i-j-1]),G[chemin[i-j-1]][chemin[i-j-2]].nom,nomSommet(chemin[i-j-2]));
+		drawArc(chemin[i-j-1], chemin[i-j-2]);
+		printf("%d) vous devez partir du sommet '%s' et prendre '%s' jusqu'au sommet '%s'\n\n",j,nomSommet(chemin[i-j-1]),G[chemin[i-j-1]][chemin[i-j-2]].nom,nomSommet(chemin[i-j-2]));
 	}
-	printf("%d ) vous etes arrivé a votre destination '%s' en %d secondes\n\n\n",j,nomSommet(chemin[0]),p[chemin[0]].poid);
+	printf("%d) vous etes arrivé a votre destination '%s' en %d secondes\n\n\n",j,nomSommet(chemin[0]),p[chemin[0]].poid);
 }
 
 
