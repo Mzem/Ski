@@ -27,6 +27,7 @@ void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
 
 void itineraire(Arc G, int experience)
 {	//Lance le choix du point de départ et d'arrivée en mode graphique
+	
 	int sommetDepart, sommetArrivee = -1;
 	POINT HG;
 	
@@ -52,5 +53,6 @@ void itineraire(Arc G, int experience)
 					plusCourtChemin(G, sommetDepart, sommetArrivee);	//Lance le calcul du plus court chemin en mode graphique
 			}
 		}
+	//////il faut rajouter un wait clic pour finir et remttre debut et fin a 0 (re_afficher)
 	}
 }

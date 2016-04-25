@@ -63,12 +63,10 @@ void dijkstra(int depart,int arrivee,antecedant a[],parcour p[])
 		return;}
 	while(pere!=-1)
 	{
-		printf("le pere est %d\n",pere);
 		int nbf=recherche_fils(pere,f);
 		for (i = 0; i < nbf; i++)
 		{
 			fils=f[i];
-			printf("le fils est %d\n",fils);
 			if((p[fils].parcouru==0)&&((p[fils].poid==-1)||(p[pere].poid+G[pere][fils].poids<p[fils].poid)))
 			{
 				p[fils].poid=p[pere].poid+G[pere][fils].poids;
