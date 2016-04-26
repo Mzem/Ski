@@ -14,3 +14,5 @@ int recherche_pere(parcour p[]);
 int recherche_fils(int pere,int f[]);
 
 void dijkstra(int depart,int arrivee,antecedant a[],parcour p[]);
+
+void dijkstra2(int pere[V], int sommetDepart);

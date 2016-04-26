@@ -13,6 +13,31 @@ void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
 	HG.x = 880;
 	HG.y = 580;
 	
+	if (sommetDepart == sommetArrivee)
+	{
+		printf("Vous etes deja a destination '%s'\n\n",nomSommet(sommetDepart));
+		return;
+	}
+	
+	int pere[V];
+	dijkstra2(pere,sommetDepart);	//Modifie le tableau pere
+	
+	//On exploite le tableau pere pour remonter du sommetArrivee au sommetDepart
+	int depart, arrivee = sommetArrivee;
+	do {
+		depart = pere[arrivee];	//Le sommet de départ est le pere du sommet d'arrivee
+		if (depart == -1)
+		{
+			printf("Il n'existe pas de chemin entre '%s' et '%s'\n\n",nomSommet(sommetDepart),nomSommet(sommetArrivee));
+			return;
+		}
+		drawArc(depart,arrivee);
+		arrivee = depart; 		//Le nouveau sommet d'arrivee est l'ancien sommet de départ
+	} while (depart != sommetDepart);
+	
+	
+	/*
+	
 	antecedant a[V];
 	parcour p[V];
 
@@ -20,9 +45,7 @@ void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
 	initialise_tableau_parcour(p, sommetDepart);
 
 	dijkstra(sommetDepart, sommetArrivee, a, p);
-	
-	//ici on doit mettre la parite affichage de la fonction dijkstra
-	//il faut aussi afficher le nom des sommet parcourus et des arcs à chaque fois (j'ai prévu un truc)
+	*/
 }
 
 void itineraire(Arc G, int experience)
@@ -53,6 +76,5 @@ void itineraire(Arc G, int experience)
 					plusCourtChemin(G, sommetDepart, sommetArrivee);	//Lance le calcul du plus court chemin en mode graphique
 			}
 		}
-	//////il faut rajouter un wait clic pour finir et remttre debut et fin a 0 (re_afficher)
 	}
 }
