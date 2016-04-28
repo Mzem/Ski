@@ -10,7 +10,7 @@ int calculPoids(char* nomArc, int couleur, int temps, int experience)
 	//Couleurs : 0 - Vert, 1 - Bleu, 2 - Rouge, 3 - Noir
 	double typeRemontee = 1;	//nombre par lequel on diminue le poids de la remontée (varie en fonction de le type de remontée)
 	
-	if (couleur==1)
+	if (couleur==0)
 		return temps;
 	if (couleur==1)
 		return (experience*temps + temps);
@@ -476,6 +476,9 @@ void lectureGraphe(char* nomFichier, Arc G[V][V], int experience)
 		G[i][j].arrivee = nomSommet(j);
 		G[i][j].couleur = couleur;
 		G[i][j].poids = calculPoids(G[i][j].nom, couleur,temps,experience);
+		if((i==19)&&(j==43)){
+			printf("                %d \n",temps);
+			printf("                %d \n",G[19][43].poids);}
 	}
 	
 	fclose(F);

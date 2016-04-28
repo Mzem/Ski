@@ -177,7 +177,7 @@ void dijkstra2(int pere[V], int sommetDepart)
 					pere[i] = aTraiter;
 				}
 			}
-		}	printf("%d %d %d\n",aTraiter, sommetsTraites[aTraiter], min);
+		}
 	}
 }
 

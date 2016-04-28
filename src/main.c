@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
 			
 			lectureGraphe("../data/graphe.txt",G, DEBUTANT);	//lecture du graphe à partir du fichier le représentant et le stocker dans G
 			
+			
 			itineraire(G);	//fonction principale
 		}
 		else if ( clicBoutonExpert(choix) )

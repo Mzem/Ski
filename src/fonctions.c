@@ -21,7 +21,8 @@ void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
 	
 	int pere[V];
 	dijkstra2(pere,sommetDepart);	//Modifie le tableau pere
-	
+	int chemin[50];
+	int i=0;
 	//On exploite le tableau pere pour remonter du sommetArrivee au sommetDepart
 	int depart, arrivee = sommetArrivee;
 	do {
@@ -32,12 +33,21 @@ void plusCourtChemin(Arc G, int sommetDepart, int sommetArrivee)
 			return;
 		}
 		drawArc(depart,arrivee);
+		chemin[i]=arrivee;
+		i++;
 		arrivee = depart; 		//Le nouveau sommet d'arrivee est l'ancien sommet de départ
 	} while (depart != sommetDepart);
+	chemin[i]=arrivee;
+	int j;
+	for (j = i; j >0 ; j--) 
+	{
+		printf("%d) vous devez partir du sommet '%s' et prendre '' jusqu'au sommet '%s'\n\n",(i-j),nomSommet(chemin[j]),/*G[chemin[j]][chemin[j-1]].nom,*/nomSommet(chemin[j-1]));
+	}
+	printf("%d) vous etes arrivé a votre destination '%s' en  minutes\n\n\n",i,nomSommet(chemin[0]));
 	
+	//il faut que dijstra 2 renvoi le temps et essaye de regler le probleme d'affichage du nom de l'arc
 	
 	/*
-	
 	antecedant a[V];
 	parcour p[V];
 
