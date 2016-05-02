@@ -21,20 +21,8 @@ typedef struct
 	int poids;		//poids de l'arc de poids le plus faible entre le sommet de depart et le sommet d'arrivee
 } Arc;
 
-typedef struct
-{
-	int sommet;
-	int poid;
-	int parcouru;
-} parcour;
-
-typedef struct
-{
-	int sommet;
-	int pere;
-} antecedant;
-
 Arc G[V][V];		//matrice d'adjascence représentant les arcs du graphe
 					//la 1ère dimension (les lignes) représente les sommets de déprat
 					//la 2ème dimension (les colonnes) représente les sommets d'arrivée
-POINT points[V];	//tableau de coordonnées des sommets - à chaque sommet (repréré par son indice) corréspond des coordonnées
+POINT points[V];	//tableau de coordonnées des sommets : à chaque sommet (repréré par son indice) correspond des coordonnées
+					//utilisé uniquement pour l'interface graphique

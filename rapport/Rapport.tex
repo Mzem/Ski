@@ -1,0 +1,183 @@
+\documentclass[a4]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=L,	                       % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C,                 	   % the language of the code
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption= instead of title
+}
+%gestion des caractères latins
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1
+}
+%definition d'un syle pour les documents texte
+\lstdefinestyle{txt}{
+	frame=none,
+	numbers=none,
+	stringstyle=\color{black},
+}
+
+\author{Younes Ben Yamna - Malek Zemni}
+\title{Rapport - Projet théorie des graphes}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+	\section{Introduction}
+			L'idée principale de ce projet est de trouver le plus court chemin entre deux sommets d'un graphe orienté.\\
+			Le graphe qui nous a été fourni - la carte de l'Alpe d'Huez - correspond à un graphe orienté muni d'une fonction de pondération positive, 
+			c'est à dire que tous les arcs ont un poids positif. Ce graphe n'est pas un graphe simple à première vue (existence de plusieurs arcs 
+			entre les même sommets), mais on pourra voir dans les sections suivantes qu'on pourra le considérer ainsi.
+			
+	\section{Graphe}
+			La première étape de ce projet était d'analyser la carte de la station de ski fournie et d'en tirer le graphe correspondant. 
+			On a donc considéré les pistes de ski et les remontées mécaniques comme des arcs, et les points d'intersection, de déprat et 
+			d'arrivée de ces pistes comme des sommets.
+			
+		\subsection{Sommets du graphe}
+			\paragraph{Considération des sommets :\\}
+			On considère comme sommets du graphe, les points de déprat et d'arrivée des pistes et les points où se croisent plusieurs de ces pistes. 
+			La carte fournie a été simplifée puisque les sommets correspondant à des points où se croisent plusieurs pistes sont en fait des zones 
+			(et non des points) où se croisent ces pistes.\\
+			Les noms des sommets sont quant à eux choisis par rapport au nom de la zone où se trouve le sommet. 
+			Si la zone ne porte pas de nom, le nom du sommet sera choisi par rapport au nom de la piste ou de la remontée la plus proche.
+			\paragraph{Indices des sommets :\\}
+			Chaque sommet a été repéré par un indice allant de 0 à 44 : \textbf{on a donc 45 sommets au total}.
+			Voici la liste complète des sommets, ainsi que leurs indices respectifs :
+			\lstinputlisting[firstline=4,style=txt,title=sommets.txt]{../data/sommets.txt}
+			
+		\subsection{Arcs du graphe}
+			\paragraph{Considération des arcs :\\}
+			Les arcs du graphe correspondent bien évidemment aux pistes de ski. On a alors deux types d'acrs : des \textit{descentes} et des
+			\textit{remontées}.\\
+			Un simplification du graphe a été effectuée : s'il existe plusieurs arcs de meme extrémité de départ et d'arrivée, 
+			on ne retient que l'arc de poids le plus faible. La raison est que pour calculer un plus court chemin, l'arc de poids faible est 
+			le seul qui va etre pris en compte, peu importe le nombre des autres arcs liant ces mêmes sommets.
+			\paragraph{Couleur et poids des arcs :\\}
+			Les différents types d'arcs ont chacun leur propre couleur qui a été repérée par un indice. Cette coloration influe directement dans 
+			le calcul du poids de l'arc pour le \textbf{cas d'un skieur débutant} :
+			\begin{itemize}
+			\item{0 - vert : descente de poids normal}
+			\item{1 - bleu : descente dont le poids est multiplié par 2}
+			\item{2 - rouge : descente dont le poids est multiplié par 3}
+			\item{3 - noir : descente dont le poids est multiplié par 4}
+			\item{4 - noir : remontée dont le poids dépend de son type (télésiège, téléski, funitel, etc.)}
+			\end{itemize}
+			Voici la fonction qui permet la conversion du temps de parcours de l'arc et de sa couleur en poids (l'entier experience vaut 0 pour un
+			expert et 1 pour un débutant) :
+			\lstinputlisting[firstline=8,lastline=41,title=graphe.c]{../src/graphe.c}
+			
+			\paragraph{Indices des arcs :\\}
+			Chaque arc dans le graphe est repéré par un indice.\\
+			Les descentes sont repérées par des indices allant de 0 à 56 : on a donc 57 descentes.\\
+			Les remontées sont repérées par des indices allant de 0 à 42 : on a donc 43 remontées.\\
+			Remarque : on ajoute 100 à chaque indice de remontée pour les différencier des descentes.\\
+			On a alors 57 descentes et 43 remontées, ce qui fait \textbf{100 arcs au total}.\\
+			Voici la liste des arcs, ainsi que leurs indices respectifs :
+			\lstinputlisting[firstline=12,style=txt,,title=arcs.txt]{../data/arcs.txt}
+		
+		\subsection{Fichier du graphe}
+			Un fois les sommets et les arcs considérés, on a pu constituer notre graphe et le rentrer dans un fichier texte en respectant ce format :
+			\begin{itemize}
+			\item{le 1er entier est l'indice du sommet de depart}
+			\item{le 2ème entier est l'indice du sommet d'arrivee}
+			\item{le 3ème entier est l'indice de l'arc liant le sommet de départ au sommet d'arrivée}
+			\item{le 4ème entier est le temps de parcours (mesuré directement sur la carte) de cet arc}
+			\item{le 5ème entier est la couleur de cet arc}
+			\end{itemize}
+			Voici un petit extrait de ce fichier :
+			\lstinputlisting[firstline=5,lastline=7,title=graphe.txt]{../data/graphe.txt}
+			
+	\section{Structure}
+			La strucutre utilisée pour représenter le graphe est une matrice d'adjascence. Cette matrice est en fait un tableau à deux dimensions 
+			dont la première dimension (les lignes) correpond à l'indice du sommet de départ, et la deuxième dimension (les colonnes) correspond 
+			à l'indice du sommet d'arrivée.\\
+			Les éléments de ce tableau ont un type personnalisé \textbf{Arc} qui stocke toutes les informations relatives à un arc du graphe :
+			\lstinputlisting[firstline=14,lastline=22,title=definitions.h]{../src/definitions.h}
+			
+			Le graphe a été déclaré comme ceci (V étant le nombre de sommets) :
+			\lstinputlisting[firstline=24,lastline=24,title=definitions.h]{../src/definitions.h}
+			Remarque : ce tableau a été déclaré comme variable globale par soucis de clareté du code : on a préféré le garder ainsi 
+			puisqu'à la fin, cce projet est un projet d'algorithmique et non de programmation.
+			
+			\paragraph{Lecture du fichier du graphe :\\}
+			Une fois la structure du graphe bien définie, on a pu créer une fonction pour le remplissage de la variable G (le graphe) à partir du
+			fichier texte :
+			\lstinputlisting[firstline=357,title=graphe.c]{../src/graphe.c}
+	
+	\section{Recherche du plus court chemin}
+			On va maintentant s'interésser à la recherche d'un plus court chemin entre un sommet de départ et un sommet d'arrivée.\\
+			La fonction principale qui permet de réaliser cette manipulation est la fonction \textbf{dijkstra} qui est une application 
+			directe de l'algorithme de meme nom.\\
+			Cet algorithme a été préféré à d'autres pour sa facilité d'implémentation, d'autant plus que le graphe fourni en entrée remplit les 
+			conditions (arcs de poids positifs).\\
+			La fonction dijkstra va se charger de remplir un tableau de pères \textbf{pere[V]} préalablement initialisé à -1 : 
+			\textit{pere[x] = y} veut dire que le sommet d'indice x a pour père le sommet d'indice y. Elle va donc calculer les plus courts chemins 
+			à partir d'un sommet racine vers tous les sommets du graphe qui lui sont accessibles (construction d'une arboresence des plus courts 
+			chemins).\\
+			Voici la fonction commentée étape par étape :
+			\lstinputlisting[firstline=23,title=dijkstra.c]{../src/dijkstra.c}
+			
+			\paragraph{Plus court chemin : \\}
+			Comme on l'a dit précedemment, la fonction dijkstra va calculer tous les plus courts chemins à partir d'un sommet racine. Cependant, 
+			notre objectif ici est de rechercher le plus court chemin entre un sommet de départ et un sommet d'arrivée précis.\\
+			L'idée est d'exploiter le tableau pere[] en le parcourant à partir du sommet d'arrivée et en remontant dans la hiérarchie des pères 
+			jusqu'à retrouver les sommet de départ. Cette séquence sera ensuite stockée dans une liste chainées (plus performante ici qu'un tableau
+			car on ne connait pas la taille du chemin) pour etre finalement affichée.\\
+			Voici la fonction qui s'occupe de cette manipulation (elle comporte quelques éléments de l'affichage graphique, n'y portez pas attention) 
+			:
+			\lstinputlisting[firstline=42,lastline=87,title=fonctions.c]{../src/fonctions.c}
+	
+			
+	\section{Conclusion}
+			En guise de conclusion, on peut dire que ce projet nous a permis d'avoir un très bon aprecu sur les champs d'application des algorithmes 
+			liés à la théorie des graphes et nous a donné l'occasion de plonger au coeur de l'action, surtout pour un problème qui nous 
+			est très familier aujourd'hui.\\
+			
+			Le code source de ce projet est "gratuitement" disponible sur github : \textbf{https://github.com/Mzem/Ski}
+		
+
+\end{document}
+
+

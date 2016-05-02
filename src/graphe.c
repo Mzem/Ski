@@ -40,20 +40,6 @@ int calculPoids(char* nomArc, int couleur, int temps, int experience)
 	return 1000;
 }
 
-void initialise(Arc G[V][V])
-{	//initialise le graphe
-	int i, j;
-	for (i = 0; i < V; i++)
-		for (j = 0; j < V; j++)
-		{
-			G[j][i].nom = "ARC INCONNU";
-			G[j][i].poids = 1000;
-			G[j][i].depart = "SOMMET INCONNU";
-			G[j][i].arrivee = "SOMMET INCONNU";
-		}
-}
-	
-
 char* nomSommet(int indiceSommet)
 {	//prend un indice de sommet et retourne le nom du sommet correspondant
 	if (indiceSommet==0)
@@ -148,101 +134,6 @@ char* nomSommet(int indiceSommet)
 		return "L'ALPETTE BASSE";
 		
 	return "SOMMET INCONNU";
-}
-
-int indiceSommet(char* nomSommet)
-{	//prend un indice de sommet et retourne le nom du sommet correspondant
-	 if (!strcmp(nomSommet,"PIC_BLANC"))
-		return 0;
-	 if (!strcmp(nomSommet,"GROTTE_DE_GLACE"))
-		return 1;
-	 if (!strcmp(nomSommet,"SOMMET_3060"))
-		return 2;
-	 if (!strcmp(nomSommet,"SARENNE_BASSE"))
-		return 3;
-	 if (!strcmp(nomSommet,"CLOCHER_DE_MACLE"))
-		return 4;
-	 if (!strcmp(nomSommet,"LAC_BLANC"))
-		return 5;
-	 if (!strcmp(nomSommet,"LIEVRE_BLANC"))
-		return 6;
-	 if (!strcmp(nomSommet,"PLAT_DES_MARMOTTES"))
-		return 7;
-	 if (!strcmp(nomSommet,"MINE_DE_L'HERPIE"))
-		return 8;
-	 if (!strcmp(nomSommet,"SOMMET_2100"))
-		return 9;
-	 if (!strcmp(nomSommet,"SOMMET_DES_VACHETTES"))
-		return 10;
-	 if (!strcmp(nomSommet,"SIGNAL_DE_L'HOMME"))
-		return 11;
-	 if (!strcmp(nomSommet,"L'ALPETTE"))
-		return 12;
-	 if (!strcmp(nomSommet,"COL_DU_COUARD"))
-		return 13;
-	 if (!strcmp(nomSommet,"CASCADE"))
-		return 14;
-	 if (!strcmp(nomSommet,"CLOS_GIRAUD"))
-		return 15;
-	 if (!strcmp(nomSommet,"MONFRAIS"))
-		return 16;
-	 if (!strcmp(nomSommet,"SIGNAL"))
-		return 17;
-	 if (!strcmp(nomSommet,"RIFNEL_EXPRESS"))
-		return 18;
-	 if (!strcmp(nomSommet,"CHALVET"))
-		return 19;
-	 if (!strcmp(nomSommet,"AURIS_EXPRESS"))
-		return 20;
-	 if (!strcmp(nomSommet,"FONTFROIDE"))
-		return 21;
-	 if (!strcmp(nomSommet,"LOUVETS"))
-		return 22;
-	 if (!strcmp(nomSommet,"POUTRAN"))
-		return 23;
-	 if (!strcmp(nomSommet,"CHAMP_CLOTURE"))
-		return 24;
-	 if (!strcmp(nomSommet,"STADE"))
-		return 25;
-	 if (!strcmp(nomSommet,"SCHUSS"))
-		return 26;
-	 if (!strcmp(nomSommet,"ALPE_D'HUEZ"))
-		return 27;
-	 if (!strcmp(nomSommet,"GRANDE_SURE"))
-		return 28;
-	 if (!strcmp(nomSommet,"ECLOSE"))
-		return 29;
-	 if (!strcmp(nomSommet,"SURES"))
-		return 30;
-	 if (!strcmp(nomSommet,"COL"))
-		return 31;
-	 if (!strcmp(nomSommet,"AURIS_EN_OISANS"))
-		return 32;
-	 if (!strcmp(nomSommet,"LA_VILLETTE"))
-		return 33;
-	 if (!strcmp(nomSommet,"VAUJANY"))
-		return 34;
-	 if (!strcmp(nomSommet,"L'EVERSIN_D OZ"))
-		return 35;
-	 if (!strcmp(nomSommet,"OZ_EN_OISANS"))
-		return 36;
-	 if (!strcmp(nomSommet,"PETIT_PRINCE"))
-		return 37;
-	 if (!strcmp(nomSommet,"VILLAGE"))
-		return 38;
-	 if (!strcmp(nomSommet,"MARONNE"))
-		return 39;
-	 if (!strcmp(nomSommet,"VILLARD_RECULAS"))
-		return 40;
-	 if (!strcmp(nomSommet,"HUEZ"))
-		return 41;
-	 if (!strcmp(nomSommet,"DOME_DES_PETITES_ROUSSES"))
-		return 42;
-	 if (!strcmp(nomSommet,"ALPAURIS"))
-		return 43;
-	 if (!strcmp(nomSommet,"L'ALPETTE_BASSE"))
-		return 44;
-	return 200;		//Sommet 200 n'existe pas donc sommet inconnu, donc pas de chemin
 }
 
 char* nomArc(int indiceArc)
@@ -450,14 +341,26 @@ char* nomArc(int indiceArc)
 	return "ARC INCONNU";
 }
 
+void initialise(Arc G[V][V])
+{	//initialise le graphe
+	int i, j;
+	for (i = 0; i < V; i++)
+		for (j = 0; j < V; j++)
+		{
+			G[j][i].nom = "ARC INCONNU";
+			G[j][i].poids = 1000;
+			G[j][i].depart = "SOMMET INCONNU";
+			G[j][i].arrivee = "SOMMET INCONNU";
+		}
+}
 
 void lectureGraphe(char* nomFichier, Arc G[V][V], int experience)
 {	//Lit le graphe à partir du fichier fourni
 	FILE* F = fopen(nomFichier,"r");	//doit etre deja present, sinon NULL
 	
 	if (F == NULL){
-		printf("fichier du graphe introuvable\n");
-		return;
+		fprintf(stderr,"Erreur : fichier du graphe introuvable\n");
+		exit(EXIT_FAILURE);
 	}
 	
 	int k;
@@ -475,21 +378,8 @@ void lectureGraphe(char* nomFichier, Arc G[V][V], int experience)
 		G[i][j].depart = nomSommet(i);
 		G[i][j].arrivee = nomSommet(j);
 		G[i][j].couleur = couleur;
-		G[i][j].poids = calculPoids(G[i][j].nom, couleur,temps,experience);
-		if((i==19)&&(j==43)){
-			printf("                %d \n",temps);
-			printf("                %d \n",G[19][43].poids);}
+		G[i][j].poids = calculPoids(G[i][j].nom, couleur, temps, experience);
 	}
 	
 	fclose(F);
-}
-
-void afficheGraphe(Arc G[V][V])
-{	//Un affichage détaillé en mode console des arcs du graphe pour tester la lecture
-	printf("\n######################################### AFFICHAGE DU GRAPHE #########################################\n");
-	int i,j;
-	for (i = 0; i < V; i++)
-		for (j = 0; j < V; j++)
-			if (G[i][j].poids!=1000)
-				printf("%s   ->   %s   :   %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nom,G[i][j].poids);
 }

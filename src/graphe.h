@@ -9,10 +9,6 @@
 
 char* nomSommet(int indiceSommet);
 
-int indiceSommet(char* nomSommet);
-
 char* nomArc(int indiceArc);
 
 void lectureGraphe(char* nomFichier, Arc G[V][V], int experience);
-
-void afficheGraphe(Arc G[V][V]);

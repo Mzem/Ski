@@ -5,14 +5,6 @@
 
 #endif
 
-void initialise_tableau_antecedant(antecedant a[]);
+//dijkstra modifie le tableau pere pour donner le tableau des plus courts chemins pour un sommet de départ donné
 
-void initialise_tableau_parcour(parcour p[],int depart);
-
-int recherche_pere(parcour p[]);
-
-int recherche_fils(int pere,int f[]);
-
-void dijkstra(int depart,int arrivee,antecedant a[],parcour p[]);
-
-void dijkstra2(int pere[V], int sommetDepart);
+void dijkstra(int pere[V], int sommetDepart);	

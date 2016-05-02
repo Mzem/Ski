@@ -23,6 +23,29 @@ void afficheBoutonExpert()
 	affiche_all();
 	attendre(150);
 }
+void afficheBoutonRecommencer()
+{
+	POINT P1 = {730,530};
+	POINT P2 = {860,580};
+	draw_fill_rectangle(P1,P2,couleur_RGB(38,196,236));
+	draw_rectangle(P1,P2,black);
+	P1.x = 737;
+	P1.y = 566;
+	aff_pol("RECOMMENCER",15,P1,noir);
+	affiche_all();
+}
+void afficheBoutonRecommencerSombre()
+{
+	POINT P1 = {730,530};
+	POINT P2 = {860,580};
+	draw_fill_rectangle(P1,P2,couleur_RGB(25,180,220));
+	draw_rectangle(P1,P2,black);
+	P1.x = 737;
+	P1.y = 566;
+	aff_pol("RECOMMENCER",15,P1,noir);
+	affiche_all();
+	attendre(150);
+}
 int clicBoutonDebutant(POINT clic)
 {
 	if (clic.x > 300 && clic.x < 800 && clic.y < 340 && clic.y > 240)
@@ -41,7 +64,14 @@ int clicBoutonMenu(POINT clic)
 		return 1;
 	return 0;
 }
-
+int clicBoutonRecommencer(POINT clic)
+{
+	if (clic.x > 730 && clic.x < 860 && clic.y < 580 && clic.y > 530){
+		afficheBoutonRecommencerSombre();
+		return 1;
+	}
+	return 0;
+}
 void colorierSommets()
 {	//Dessine des cercles pour représenter les sommets sur la carte, chaque sommet étant repréré par un indice (voir sommets.txt)
 	//tout en stockant les coordonnées de chaque sommet dans le tableau points
@@ -140,7 +170,7 @@ void colorierSommets()
 void afficheCarte()
 {
 	POINT bg; bg.x = 0; bg.y = 600;
-	affiche_image("../data/img/map1.bmp",bg,1100,600);
+	affiche_image("../data/img/map.bmp",bg,1100,600);
 	colorierSommets();	//affiche un cercle sur tous les sommets
 	affiche_all();
 }
@@ -161,7 +191,7 @@ int clicSommet(POINT clic, COULEUR c)
 }
 
 void afficheTexte(char* texte, POINT HG, COULEUR c)
-{
+{	//Affiche du texte centré et de taille dynamique
 	int taille = 0, longeur = strlen(texte);
 
 	if (longeur <= 13)
@@ -204,7 +234,18 @@ void drawBigLine(POINT P1, POINT P2, COULEUR c)
 	P2.x += 2;
 	draw_line(P1,P2,c);
 }
-
+void drawTriangle(POINT centre, int rayon, COULEUR c)	
+{	//dessine le triangle equilateral inscrit dans le cercle passé en paramètre
+	POINT A, B, C;
+	A.x = centre.x;
+	A.y = centre.y + rayon;
+	B.x = centre.x - rayon*0.86;
+	B.y = centre.y - rayon/2;
+	C.x = centre.x + rayon*0.86;
+	C.y = centre.y - rayon/2;
+	
+	draw_fill_triangle(A,B,C,c);
+}
 void drawArc(int depart, int arrivee)
 {	//Dessine un arc colorié entre le sommet de départ et le sommet d'arrivée, chaque sommet étant repréré par un indice (voir sommets.txt)
 	if (G[depart][arrivee].poids != 1000)	//si l'arc existe
@@ -212,20 +253,24 @@ void drawArc(int depart, int arrivee)
 		switch(G[depart][arrivee].couleur)
 		{
 			case 0 : 	drawBigLine(points[depart],points[arrivee],vert);
+						drawTriangle(points[arrivee],5,vert);
 						break;
 			case 1 : 	drawBigLine(points[depart],points[arrivee],bleu);
+						drawTriangle(points[arrivee],5,bleu);
 						break;
 			case 2 : 	drawBigLine(points[depart],points[arrivee],rouge); 
+						drawTriangle(points[arrivee],5,rouge);
 						break;
 			case 3 : 	drawBigLine(points[depart],points[arrivee],gris);
+						drawTriangle(points[arrivee],5,gris);
 						break;
 			case 4 : 	drawBigLine(points[depart],points[arrivee],noir);
+						drawTriangle(points[arrivee],5,noir);
 						break;
 			default : 	drawBigLine(points[depart],points[arrivee],blanc);
+						drawTriangle(points[arrivee],5,blanc);
 						break;
 		}
-		draw_fill_circle(points[depart],5,yellow);
-		affiche_all();
 	}
 }
 
