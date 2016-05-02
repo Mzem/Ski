@@ -24,29 +24,43 @@ Liste ajoutDebut(Liste l, int x)
     l = nouveau ;
     return l;
 }
-void printListeChemin(Liste l, Arc G[V][V])
+void printListeChemin(Liste l, Arc G[V][V], char* tempsTotal)
 {
     if (l==NULL || l->suiv == NULL) {		//Cas impossible, donc on peut ne pas le gérer
 		printf("La liste est vide\n");
 		return;
 	}
+	int i=0;
+	POINT HGs = {880,410};
+	POINT HGa = {890,395};
     while(l->suiv != NULL) {
 		printf("- Vous devez partir du sommet \"%s\" en prenant \"%s\" jusqu'au sommet \"%s\".\
 		\n", nomSommet(l->val), G[l->val][l->suiv->val].nom, nomSommet(l->suiv->val));
+		if(i!=0)
+			aff_pol(nomSommet(l->val),14,HGs,gold);
+		aff_pol(G[l->val][l->suiv->val].nom,12,HGa,blanc);
+		HGs.y -= 30;
+		HGa.y -= 30;
         l = l->suiv;
+        i++;
 	}
+	aff_pol(nomSommet(l->val),14,HGs,vert);
+	HGa.y -= 10;
+	aff_pol(tempsTotal,17,HGa,blanc);
 }
 
 //Fonctions principales
 
 void plusCourtChemin(Arc G[V][V], int sommetDepart, int sommetArrivee)
 {	//Calcule le plus court chemin entre deux sommets et affiche ce chemin
-	POINT HG = {880,170};
+	POINT HGmsg = {890,370};
 	
 	if (sommetDepart == sommetArrivee)
 	{
 		printf("Vous etes deja a destination '%s'\n\n",nomSommet(sommetDepart));
-		afficheTexte("A DESTINATION",HG,blanc);
+		POINT HGs2 = {880,390};
+		aff_pol(nomSommet(sommetArrivee),14,HGs2,vert);
+		aff_pol("a destination",14,HGmsg,blanc);
 		return;
 	}
 	
@@ -66,7 +80,9 @@ void plusCourtChemin(Arc G[V][V], int sommetDepart, int sommetArrivee)
 		if (depart == -1)
 		{
 			printf("Il n'existe pas de chemin entre '%s' et '%s'\n\n",nomSommet(sommetDepart),nomSommet(sommetArrivee));
-			afficheTexte("PAS DE CHEMIN",HG,blanc);
+			POINT HGs2 = {880,390};
+			aff_pol(nomSommet(sommetArrivee),14,HGs2,vert);
+			aff_pol("pas de chemin",14,HGmsg,blanc);
 			return;
 		}
 		drawArc(depart,arrivee);
@@ -76,26 +92,26 @@ void plusCourtChemin(Arc G[V][V], int sommetDepart, int sommetArrivee)
 		arrivee = depart; 		//Le nouveau sommet d'arrivee est l'ancien sommet de départ
 	} while (depart != sommetDepart);
 	
-	//Affichage du chemin et du temps (en console et partiellement en graphique)
+	//Affichage du chemin et du temps (en console et graphique)
 	draw_fill_circle(points[sommetDepart],5,rouge);
-	printListeChemin(chemin,G);
-	printf("Vous etes arrivé en %d minutes\n",tempsTotal);
 	char ch[3];
 	sprintf(ch,"%d MINUTES",tempsTotal);
-	afficheTexte(ch,HG,blanc);
+	printListeChemin(chemin,G,ch);
+	printf("Vous etes arrivé en %d minutes\n",tempsTotal);
+
 	affiche_all();
 }
 
 void itineraire(Arc G[V][V])
 {	//Lance le choix du point de départ et d'arrivée en mode graphique
-	POINT HG;
 	
 	while(1)	//ne s'arrete que si l'on clique sur le bouton menu
 	{
 		afficheCarte();
 		
 		POINT clic = wait_clic();
-		HG.x = 880; HG.y = 370;
+		POINT HG = {880,410};
+		
 		int sommetDepart, sommetArrivee = -1;
 	
 		if (clicBoutonMenu(clic))	//si on clique sur le bouton menu, la fonction se termine
@@ -103,16 +119,15 @@ void itineraire(Arc G[V][V])
 		
 		if ( (sommetDepart = clicSommet(clic,rouge)) != -1 )	//si on clique sur un 1er sommet
 		{
-			afficheTexte(nomSommet(sommetDepart),HG,rouge);
+			aff_pol(nomSommet(sommetDepart),14,HG,rouge);
+			affiche_all();
 			
 			while(sommetArrivee == -1)	//on attend un clic sur un 2ème sommet
 			{
 				clic = wait_clic();
-				HG.y = 270;
 				
 				if ( (sommetArrivee = clicSommet(clic,vert)) != -1 )
 				{
-					afficheTexte(nomSommet(sommetArrivee),HG,vert);
 					plusCourtChemin(G, sommetDepart, sommetArrivee);	//Lance le calcul du plus court chemin en mode graphique
 				}
 			}
